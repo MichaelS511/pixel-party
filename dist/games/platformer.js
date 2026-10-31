@@ -2,14 +2,14 @@
 const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),scoreEl=document.querySelector('#score'),bestEl=document.querySelector('#best'),status=document.querySelector('#status');
 const W=canvas.width,H=canvas.height,worldW=1460,gravity=.36;
 const platforms=[{x:0,y:318,w:294},{x:404,y:250,w:130},{x:560,y:318,w:188},{x:808,y:238,w:135},{x:990,y:205,w:135},{x:1150,y:318,w:320}];
-const walls=[{x:294,y:210,w:20,h:108},{x:348,y:146,w:22,h:172},{x:698,y:193,w:20,h:125},{x:754,y:154,w:22,h:164}];
+const walls=[{x:294,y:224,w:20,h:94},{x:348,y:168,w:22,h:150},{x:698,y:193,w:20,h:125},{x:754,y:154,w:22,h:164}];
 const initialCoins=[{x:135,y:284},{x:278,y:197},{x:445,y:221},{x:620,y:284},{x:734,y:220},{x:853,y:209},{x:1035,y:175},{x:1210,y:284},{x:1310,y:284}];
 const keys={left:false,right:false};let player,coins,critters,score=0,best=+(localStorage.platformerBest||0),camera=0,done=false,raf;
 bestEl.textContent=best;
 function reset(){cancelAnimationFrame(raf);player={x:38,y:270,w:22,h:29,vx:0,vy:0,grounded:false,wallSide:null,wallJumpLock:0};coins=initialCoins.map(c=>({...c,taken:false}));critters=[{x:156,y:299,min:112,max:238,vx:.65,alive:true},{x:456,y:231,min:421,max:506,vx:.55,alive:true},{x:857,y:219,min:824,max:907,vx:.6,alive:true}];score=0;camera=0;done=false;scoreEl.textContent='0';status.textContent='Head for the flag. Wall-jump up the tall ledges!';frame()}
-function jump(){if(done)return;if(player.grounded){player.vy=-7.7;player.grounded=false;player.wallSide=null;return}if(player.wallSide){player.vy=-7.4;player.vx=player.wallSide==='right'?-3.05:3.05;player.wallJumpLock=8;player.grounded=false;player.wallSide=null;status.textContent='Wall jump! Steer back toward the next wall.'}}
+function jump(){if(done)return;if(player.grounded){player.vy=-7.7;player.grounded=false;player.wallSide=null;return}if(player.wallSide){player.vy=-8;player.vx=player.wallSide==='right'?-2.6:2.6;player.wallJumpLock=3;player.grounded=false;player.wallSide=null;status.textContent='Wall jump! Steer back toward the next wall.'}}
 function overlaps(a,b){return a.x+a.w>b.x&&a.x<b.x+b.w&&a.y+a.h>b.y&&a.y<b.y+b.h}
-function move(){if(player.wallJumpLock>0)player.wallJumpLock--;else{if(keys.left)player.vx-=.2;if(keys.right)player.vx+=.2}if(!keys.left&&!keys.right&&player.wallJumpLock===0)player.vx*=.78;player.vx=Math.max(-2.35,Math.min(2.35,player.vx));
+function move(){if(player.wallJumpLock>0)player.wallJumpLock--;else{if(keys.left)player.vx-=.26;if(keys.right)player.vx+=.26}if(!keys.left&&!keys.right&&player.wallJumpLock===0)player.vx*=.78;player.vx=Math.max(-2.35,Math.min(2.35,player.vx));
 const oldX=player.x;player.x=Math.max(0,Math.min(worldW-player.w,player.x+player.vx));let touched=null;
 for(const wall of walls){if(player.y+player.h<=wall.y||player.y>=wall.y+wall.h)continue;if(player.vx>0&&oldX+player.w<=wall.x&&player.x+player.w>wall.x){player.x=wall.x-player.w;player.vx=0;touched='right'}else if(player.vx<0&&oldX>=wall.x+wall.w&&player.x<wall.x+wall.w){player.x=wall.x+wall.w;player.vx=0;touched='left'}}
 const previousY=player.y;player.vy=Math.min(8,player.vy+gravity);player.y+=player.vy;player.grounded=false;

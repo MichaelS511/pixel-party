@@ -33,6 +33,6 @@ function frame(){if(!done)move();draw();if(!done)raf=requestAnimationFrame(frame
 function setAction(action,on){if(action==='left'||action==='right')keys[action]=on;else if(action==='jump'&&on)jump()}
 document.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp',' '].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')keys.left=true;if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')keys.right=true;if(!e.repeat&&(e.key==='ArrowUp'||e.key===' '||e.key.toLowerCase()==='w'))jump()});
 document.addEventListener('keyup',e=>{if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')keys.left=false;if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')keys.right=false});
-document.querySelectorAll('[data-action]').forEach(button=>{const action=button.dataset.action;button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);setAction(action,true)});button.addEventListener('pointerup',()=>setAction(action,false));button.addEventListener('pointercancel',()=>setAction(action,false)});
+document.querySelectorAll('[data-action]').forEach(button=>{const action=button.dataset.action;button.addEventListener('pointerdown',e=>{e.preventDefault();button.setPointerCapture(e.pointerId);setAction(action,true)});button.addEventListener('pointerup',()=>setAction(action,false));button.addEventListener('pointercancel',()=>setAction(action,false));});
 document.querySelector('#restart').addEventListener('click',reset);reset();
 })();

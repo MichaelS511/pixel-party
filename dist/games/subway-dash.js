@@ -1,5 +1,5 @@
 (()=>{
-const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),distanceEl=document.querySelector('#distance'),coinsEl=document.querySelector('#coins'),bestEl=document.querySelector('#best'),status=document.querySelector('#status'),overlay=document.querySelector('#overlay'),finalScore=document.querySelector('#final-score');
+const canvas=document.querySelector('#board'),ctx=canvas.getContext('2d'),economy=window.PixelEconomy,distanceEl=document.querySelector('#distance'),coinsEl=document.querySelector('#coins'),bestEl=document.querySelector('#best'),status=document.querySelector('#status'),overlay=document.querySelector('#overlay'),finalScore=document.querySelector('#final-score');
 const W=canvas.width,H=canvas.height,horizon=55,roadBottom=352;
 let lane=1,jumpTime=0,slideTime=0,runDistance=0,coins=0,best=+(localStorage.subwayDashBest||0),speed=.29,spawnTimer=1.1,coinTimer=.45,obstacles=[],pickups=[],running=true,lastTime=0,clock=0,raf,lastLane=1;
 bestEl.textContent=best;
@@ -13,7 +13,7 @@ function reset(){lane=1;jumpTime=0;slideTime=0;runDistance=0;coins=0;speed=.29;s
 function collide(){running=false;const d=Math.floor(runDistance);if(d>best){best=d;localStorage.subwayDashBest=best;bestEl.textContent=best}status.textContent='Bonk! Pick a lane and try again.';finalScore.textContent='Distance: '+d+' m  ·  Coins: '+coins;overlay.hidden=false}
 function update(dt){clock+=dt;runDistance+=speed*dt*20;speed=Math.min(.49,speed+dt*.0021);distanceEl.textContent=Math.floor(runDistance);if(jumpTime>0)jumpTime=Math.max(0,jumpTime-dt);if(slideTime>0)slideTime=Math.max(0,slideTime-dt);spawnTimer-=dt;coinTimer-=dt;if(spawnTimer<=0){spawnObstacle();spawnTimer=Math.max(1.08,1.42-(speed-.29)*1.15)}if(coinTimer<=0){spawnCoins();coinTimer=1.65+Math.random()*.45}
 for(const o of obstacles){const before=o.z;o.z+=speed*dt;if(!o.hit&&before<.91&&o.z>=.91&&o.lane===lane){const safe=o.type==='train'?false:o.type==='barrier'?jumpTime>0:slideTime>0;if(!safe){collide();return}o.hit=true}}
-for(const c of pickups){c.z+=speed*dt;if(!c.taken&&c.z>=.88&&c.z<.97&&c.lane===lane){c.taken=true;coins++;coinsEl.textContent=coins;status.textContent='Coin collected! Keep moving.'}}
+for(const c of pickups){c.z+=speed*dt;if(economy.owns('coin_magnet')&&c.z>.25&&c.z<.84&&Math.abs(c.lane-lane)===1)c.lane=lane;if(!c.taken&&c.z>=.88&&c.z<.97&&c.lane===lane){c.taken=true;coins++;coinsEl.textContent=coins;economy.award(1);status.textContent='Coin collected! +1 Pixel Point.'}}
 obstacles=obstacles.filter(o=>o.z<1.08);pickups=pickups.filter(c=>c.z<1.08&&!c.taken);
 }
 function drawRoad(){ctx.fillStyle='#171e24';ctx.fillRect(0,0,W,H);const top=horizon,bottom=roadBottom,topWidth=118,bottomWidth=596;ctx.fillStyle='#273237';ctx.beginPath();ctx.moveTo(W/2-topWidth/2,top);ctx.lineTo(W/2+topWidth/2,top);ctx.lineTo(W/2+bottomWidth/2,bottom);ctx.lineTo(W/2-bottomWidth/2,bottom);ctx.closePath();ctx.fill();ctx.fillStyle='#202a2f';ctx.fillRect(0,0,W,horizon);ctx.fillStyle='#243037';ctx.fillRect(0,horizon-8,76,H-horizon);ctx.fillRect(W-76,horizon-8,76,H-horizon);

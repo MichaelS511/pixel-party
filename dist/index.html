@@ -1,47 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#151a21">
-<meta name="description" content="Turn your to-do list into a game. Finish quests, earn arcade tickets, and play Pixel Survivor.">
-<title>Quest Arcade — Pixel Party</title>
-<link rel="stylesheet" href="assets/style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#151a21">
+<meta name="description" content="Pick a game and play in seconds. A tiny arcade for quick breaks.">
+<title>Pixel Party — Choose a game, jump straight in, and earn points as you play.</title><link rel="stylesheet" href="assets/style.css">
 </head>
-<body class="quest-page">
-<header class="topbar quest-topbar">
-  <a class="brand" href="index.html" aria-label="Pixel Party home"><span class="brand-mark">✳</span> pixel party</a>
-  <nav aria-label="Main navigation"><a class="nav-link active" href="index.html" aria-current="page">Quest board</a><a class="nav-link" href="games/snake.html">Snake</a><a class="nav-link" href="games/2048.html">2048</a><a class="nav-link" href="games/pixel-survivor.html">Pixel Survivor</a><a class="nav-link" href="shop.html">Shop</a></nav>
-  <div class="wallet-pill" aria-live="polite">◆ <span data-wallet-points>0</span><span>PTS</span></div>
-</header>
-<main class="quest-main">
-  <section class="quest-welcome">
-    <div><p class="eyebrow">YOUR WEEK, WITH A LITTLE EXTRA XP</p><h1>Get things done.<br><span class="gradient-text">Then hit the arcade.</span></h1><p>Keep your plans in one place. Every finished quest earns points and a ticket for Pixel Survivor.</p></div>
-    <div class="welcome-stats" aria-label="Your progress"><div><span>ARCADE TICKETS</span><strong><b data-ticket-count>0</b><i>✦</i></strong></div><div><span>QUESTS FINISHED</span><strong><b data-done-count>0</b><small> / <span data-total-count>0</span></small></strong></div></div>
-  </section>
-
-  <div class="quest-columns">
-    <section class="quest-board" aria-labelledby="quest-heading">
-      <div class="quest-board-head"><div><p class="eyebrow">THE QUEST BOARD</p><h2 id="quest-heading">What’s on your list?</h2></div><span class="quest-reward-note">Finish one to earn <b>+10 points</b> and <b>1 ticket</b></span></div>
-      <form class="quest-form" id="quest-form"><label class="sr-only" for="quest-title">Add a task</label><input id="quest-title" name="title" maxlength="90" placeholder="Add something you need to do…" required><select id="quest-category" aria-label="Task category"><option value="Personal">Personal</option><option value="Club">Club</option><option value="School">School</option><option value="Practice">Practice</option><option value="Home">Home</option></select><button class="button button-lime" type="submit">Add quest <span>＋</span></button></form>
-      <div class="quest-toolbar"><div class="quest-filters" role="group" aria-label="Show tasks"><button type="button" class="filter-button active" data-filter="active">To do <span data-active-count>0</span></button><button type="button" class="filter-button" data-filter="done">Finished <span data-filter-done-count>0</span></button><button type="button" class="filter-button" data-filter="all">All</button></div><span class="week-label">YOUR QUESTS STAY ON THIS DEVICE</span></div>
-      <p class="quest-toast" id="quest-announcement" role="status" aria-live="polite" hidden></p>
-      <ul class="task-list" id="task-list" aria-live="polite"></ul>
-      <p class="empty-quests" id="empty-quests" hidden>No quests here right now. Add one above and make the first move.</p>
-    </section>
-
-    <aside class="arcade-card" aria-labelledby="arcade-heading">
-      <div class="arcade-card-top"><span class="arcade-kicker"><span class="live-dot"></span> THE ARCADE</span><span class="arcade-ticket"><b data-ticket-count>0</b> ✦</span></div>
-      <div class="arcade-preview" aria-hidden="true"><div class="preview-grid"></div><span class="preview-zombie z-one"></span><span class="preview-zombie z-two"></span><span class="preview-player"></span><span class="preview-bullet"></span><span class="preview-star">✦</span><span class="preview-wave">WAVE<br>01</span></div>
-      <p class="eyebrow">ONE TICKET = ONE RUN</p><h2 id="arcade-heading">Pixel Survivor</h2><p class="arcade-description">Make it through a zombie wave, then choose an upgrade. Your task tickets pay for every run.</p>
-      <a class="button button-lime arcade-cta" data-play-link href="games/pixel-survivor.html"><span data-play-label>Earn a ticket to play</span><span aria-hidden="true">→</span></a>
-      <p class="arcade-footnote" data-ticket-hint>Complete a quest to get your first ticket.</p>
-      <div class="other-games"><span>NEED A QUICK BREAK?</span><a href="games/snake.html">Snake ↗</a><a href="games/2048.html">2048 ↗</a></div>
-    </aside>
-  </div>
-  <section class="reward-strip"><span class="reward-spark">✦</span><div><strong>Every little win counts.</strong><p>Finishing a quest adds 10 Pixel Points and one arcade ticket. Your progress saves automatically in this browser.</p></div><a href="shop.html">See the shop <span>→</span></a></section>
-</main>
-<footer><a class="brand" href="index.html"><span class="brand-mark">✳</span> pixel party</a><span>Make your plans feel more like play.</span><a href="games/pixel-survivor.html">GO TO THE ARCADE ↑</a></footer>
-<script src="assets/economy.js"></script><script src="assets/tasks.js"></script>
-</body>
-</html>
+<body id="top" class="home-page">
+<header class="topbar"><a class="brand" href="index.html" aria-label="Pixel Party home"><span class="brand-mark">✳</span> pixel party</a><nav aria-label="Main navigation"><a class="nav-link active" href="index.html" aria-current="page">Arcade</a><a class="nav-link" href="games/snake.html">Snake</a><a class="nav-link" href="games/2048.html">2048</a><a class="nav-link" href="games/pixel-survivor.html">Pixel Survivor</a><a class="nav-link" href="shop.html">Shop</a></nav><div class="wallet-pill" aria-live="polite">◆ <span data-wallet-points>0</span><span>PTS</span></div><div class="top-note"><span class="live-dot"></span> YOUR NEXT GAME IS READY</div></header>
+<main>
+<section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><p class="eyebrow"><span>✦</span> A GAME FOR YOUR NEXT BREAK</p><h1 id="hero-title">Pixel Party<span class="title-period">.</span></h1><p class="hero-sub">Choose a game, jump straight in, and earn points as you play.</p></div><div class="hero-tiles" aria-hidden="true"><span>2</span><span>✳</span><span>↗</span><span>8</span><span>●</span><span>4</span><span>✦</span><span>2</span><span>◢</span></div></section>
+<section class="games-section" id="games" aria-labelledby="games-title"><div class="section-heading"><div><p class="eyebrow">THREE GAMES TO PLAY</p><h2 id="games-title">Choose a game and start playing.</h2></div><span class="section-side-note">Play each game to earn points you can spend on upgrades. <span>↘</span></span></div>
+<div class="game-grid">
+<article class="game-card snake-card"><div class="card-top"><span class="game-index">01 / CLASSIC</span><span class="play-arrow" aria-hidden="true">↗</span></div><div class="game-art snake-art" aria-hidden="true"><span class="snake-bit b1"></span><span class="snake-bit b2"></span><span class="snake-bit b3"></span><span class="snake-bit b4"></span><span class="snake-bit b5"></span><span class="snake-eye"></span><span class="snake-food">✦</span><span class="art-caption">GROW<br>ON!</span></div><div class="card-info"><div><h3>Snake</h3><p>Guide your snake from one snack to the next.</p></div><span class="difficulty">EASY TO LEARN</span></div><a class="card-cta" href="games/snake.html">Play Snake <span>→</span></a></article>
+<article class="game-card tiles-card"><div class="card-top"><span class="game-index">02 / PUZZLE</span><span class="play-arrow" aria-hidden="true">↗</span></div><div class="game-art tiles-art" aria-hidden="true"><div class="mini-tiles"><b>2</b><b>4</b><b>8</b><b>2</b></div><span class="art-caption">BIG<br>NUMBERS!</span></div><div class="card-info"><div><h3>2048</h3><p>Combine matching tiles and build the biggest number.</p></div><span class="difficulty">THINKING GAME</span></div><a class="card-cta" href="games/2048.html">Play 2048 <span>→</span></a></article>
+<article class="game-card survivor-card"><div class="card-top"><span class="game-index">03 / ZOMBIE SURVIVAL</span><span class="play-arrow" aria-hidden="true">↗</span></div><div class="game-art survivor-art" aria-hidden="true"><span class="survivor-grid"></span><span class="survivor-zombie zombie-a"></span><span class="survivor-zombie zombie-b"></span><span class="survivor-bullet"></span><span class="survivor-hero"></span></div><div class="card-info"><div><h3>Pixel Survivor</h3><p>Defeat each wave, then choose an upgrade for the next one.</p></div><span class="difficulty">ZOMBIE SURVIVAL</span></div><a class="card-cta" href="games/pixel-survivor.html">Play Pixel Survivor <span>→</span></a></article>
+</div></section>
+</main><footer><a class="brand" href="index.html"><span class="brand-mark">✳</span> pixel party</a><span>Thanks for stopping by; come back whenever you need another quick break.</span><a href="#top">BACK TO TOP ↑</a></footer>
+<script src="assets/economy.js"></script></body></html>
